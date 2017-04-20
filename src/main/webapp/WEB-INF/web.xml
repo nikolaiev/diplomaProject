@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <servlet>
+        <servlet-name>main</servlet-name>
+        <servlet-class>controller.FrontController</servlet-class>
+
+        <multipart-config>
+            <location>/tmp</location>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>main</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+        <url-pattern>/wav</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>requestFilted</filter-name>
+        <filter-class>controller.filter.RequestFilted</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>requestFilted</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <context-param>
+        <param-name>upload.location</param-name>
+        <param-value>/usr/share/tomcat8/bin/library/</param-value>
+    </context-param>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/view/pageNotFound.jsp</location>
+    </error-page>
+
+</web-app>

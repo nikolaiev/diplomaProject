@@ -1,3 +1,5 @@
+package service.fourier;
+
 import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
 import javafx.application.Application;
 import org.jfree.chart.ChartFactory;
@@ -34,20 +36,20 @@ public class Main {
             x++;
         }
 
-        WaveFile wf = new WaveFile(4, 44100, 1, samples);
+        service.model.WaveFile wf = new service.model.WaveFile(4, 44100, 1, samples);
         wf.saveFile(new File("testwav1.wav"));
         System.out.println("Продолжительность моно-файла: "+wf.getDurationTime()+ " сек.");
 
         // Создание стерео-файла
         System.out.println("Создание стерео-файла...");
 
-        wf = new WaveFile(4, 44100, 1, samples);
+        wf = new service.model.WaveFile(4, 44100, 1, samples);
         wf.saveFile(new File("/home/vlad/test/testwav2.wav"));
         System.out.println("Продолжительность стерео-файла: "+wf.getDurationTime()+ " сек.");*/
 
        /* // Чтение данных из файла
         System.out.println("Чтение данных из моно-файла:");
-        wf = new WaveFile(new File("/home/vlad/test/testwav1.wav"));
+        wf = new service.model.WaveFile(new File("/home/vlad/test/testwav1.wav"));
         for(int i=0; i<50000; i+=200){
             System.out.println(wf.getSampleInt(i));
         }* /

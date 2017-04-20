@@ -1,21 +1,27 @@
-import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultKeyedValues2DDataset;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-import org.omg.CORBA.portable.Streamable;
+package service.fourier;
 
 public class FftTest {
     final static int SIZE =90000;
     public static void main(String[] args) {
-        double realParts[]=new double[SIZE];
+        System.out.println("Hello world!");
+    }
+
+
+}
+
+
+class A<U> implements Comparable<U>{
+    public int compareTo(U o) {
+        return 0;
+    }
+
+}
+
+class B<U,R> extends A<Comparable<R>>{
+
+}
+
+        /*double realParts[]=new double[SIZE];
         for(int i=0; i < realParts.length; i++){
             realParts[i] = (double)Math.round((Integer.MAX_VALUE/2)*
                     (Math.sin(2*Math.PI*440*i/22050)))+
@@ -35,7 +41,7 @@ public class FftTest {
 
         /*for(double d: fft) {
             System.out.println(d);
-        }*/
+        }* /
 
         double frequen[]=new double[SIZE];
 
@@ -73,4 +79,4 @@ public class FftTest {
         RefineryUtilities.centerFrameOnScreen( applicationFrame );
         applicationFrame.setVisible( true );
     }
-}
+}*/

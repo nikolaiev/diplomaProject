@@ -1,8 +1,6 @@
-/**
+package service.model; /**
  * Created by vlad on 03.10.16.
  */
-
-import java.io.RandomAccessFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -10,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -18,11 +15,10 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Простой класс для работы с wave-файлами.
- *
- * @author eqlbin
- *
+ * Class that represents wav-file management functionality
  */
+
+//TODO rewrite
 public class WaveFile {
 
     private int INT_SIZE = 4;
@@ -143,7 +139,7 @@ public class WaveFile {
     }
 
     /**
-     * Сохраняет объект WaveFile в стандартный файл формата WAVE
+     * Сохраняет объект service.model.WaveFile в стандартный файл формата WAVE
      *
      * @param file
      * @throws IOException
