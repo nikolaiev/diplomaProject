@@ -1,7 +1,7 @@
 package service.fourier;
 
-import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
 import javafx.application.Application;
+import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -10,6 +10,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
+import service.model.WaveFile;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,6 +18,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.stream.IntStream;
 
 /**
  * Created by vlad on 03.10.16.
@@ -24,7 +26,10 @@ import java.io.IOException;
 public class Main {
 
     final static int SIZE=44100;
+    final static String TEST_FILE_PATH="/home/vlad/Downloads/egotistical.wav";
+    final static Logger logger=Logger.getLogger(Main.class);
     public static void main(String[] args) throws Exception {
+
 
         // создание одноканального wave-файла из массива целых чисел
         /*System.out.println("Создание моно-файла...");
@@ -57,11 +62,12 @@ public class Main {
         /*========TESTING==========*/
 
 
-        double[] realParts=new double[SIZE];
-        double amp[]={0.9999,0.9999,0.99999}; //затухание
-        double freq[]={3000,250,400}; //затухание
+        //double[] realParts=new double[SIZE];
 
-        for(int i=0; i < realParts.length; i++){
+      //  double amp[]={0.9999,0.9999,0.99999}; //затухание
+        //double freq[]={3000,250,400}; //затухание
+
+   /*     for(int i=0; i < realParts.length; i++){
             realParts[i] =
                     (double)Math.round((Integer.MAX_VALUE/2)*Math.pow(amp[0],i)*
                     (Math.sin(2*Math.PI*freq[0]*i/22050)))
@@ -74,38 +80,61 @@ public class Main {
 
             //imageParts[i]=0;
         }
-
+*/
         //creating wav file
-        createWav(realParts,"initial");
+        //createWav(realParts,"initial");
+
+        WaveFile waveFile=new WaveFile(new File(TEST_FILE_PATH));
+        logger.info("discretization "+waveFile.getFramesCount()/waveFile.getSampleSize());
+        logger.info("channels "+waveFile.getChannels());
+        logger.info("sample rate "+waveFile.getSampleRate());
+        logger.info("sample size "+waveFile.getSampleSize());
+        //double[] realParts;
+        byte[] wavFileData=waveFile.getData();
+        //int dataLength=wavFileData.length;
+        System.out.println(wavFileData[0]);
+        System.out.println(wavFileData[1]);
+        System.out.println(wavFileData[2]);
 
         /*getting frequencies*/
-        DoubleFFT_1D fftDo = new DoubleFFT_1D(realParts.length);
-        double[] fft = new double[realParts.length * 2];
-        System.arraycopy(realParts, 0, fft, 0, realParts.length);
-        fftDo.realForwardFull(fft);
+        /*DoubleFFT_1D fftDo = new DoubleFFT_1D(dataLength);
 
-        double frequen[]=new double[SIZE];
+        double[] fft = new double[dataLength * 2];
 
-        for(int i=0;i<realParts.length;i++){
+        //System.arraycopy(wavFileData, 0, fft, 0, wavFileData.length);
+        for(int i=0;i<wavFileData.length;i++){
+            fft[i]=wavFileData[i];
+        }
+         fftDo.realForwardFull(fft);
+
+        double frequen[]=new double[44100];
+        logger.info("frequen.length "+frequen.length);
+        logger.info("fft.length "+fft.length );
+
+        for(int i=0;i<44100;i++){
             frequen[i]=Math.sqrt(fft[2*i]*fft[2*i]+fft[2*i+1]*fft[2*i+1]);
         }
-
-        JFrame initFrame=drawFrame(frequen,realParts,"Initial chart");
-        saveJframeAsImage(initFrame,"intitial");
+//*/
+//        int [] wavFileDataDouble =IntStream.range(0, dataLength).map(i -> wavFileData[i]).toArray();
+//
+//        createWav(wavFileDataDouble,waveFile.getSampleSize(),waveFile.getSampleRate(),
+//                waveFile.getChannels(),"init2");
+        //JFrame initFrame=drawFrame(frequen,wavFileDataDouble,"Initial chart");
+        //saveJframeAsImage(initFrame,"intitial");
 
 
         /*SIMPLE FILTERING*/
-        double alpha=0.999;
+        /*double alpha=0.999;
 
         double filterData[]=new double[SIZE];
         for(int i=1;i<SIZE;i++){
-            filterData[i]=(1-alpha)*realParts[i]
+            filterData[i]=(1-alpha)*wavFileData[i]
                     +
                     alpha*filterData[i-1];
-        }
+        }*/
 
         /*getting frequencies*/
-        DoubleFFT_1D fftDo2 = new DoubleFFT_1D(filterData.length);
+        /*DoubleFFT_1D fftDo2 = new DoubleFFT_1D(filterData.length);
         double[] fft2 = new double[filterData.length * 2];
         System.arraycopy(filterData, 0, fft2, 0, filterData.length);
         fftDo2.realForwardFull(fft2);
@@ -116,122 +145,17 @@ public class Main {
             frequenFilt[i]=Math.sqrt(fft2[2*i]*fft2[2*i]+fft2[2*i+1]*fft2[2*i+1]);
         }
 
-        /*DRAWING*/
+        *//*DRAWING*//*
         JFrame filtFrame=drawFrame(frequenFilt,filterData,"FIltered chart");
 
         //creating wav file
         createWav(filterData,"filtered");
 
-        saveJframeAsImage(filtFrame,"filtered");
+        saveJframeAsImage(filtFrame,"filtered");*/
 
     }
 
-    private static void saveJframeAsImage(JFrame filtFrame, String filtered) {
-        Image image=filtFrame.createImage(300,200);
-        BufferedImage bi =toBufferedImage(image);
 
-        Container content = filtFrame.getContentPane();
-        BufferedImage img = new BufferedImage(content.getWidth(), content.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = img.createGraphics();
-        content.printAll(g2d);
-        g2d.dispose();
-
-        try {
-            ImageIO.write(img, "png", new File(filtered+".png"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * Converts a given Image into a BufferedImage
-     *
-     * @param img The Image to be converted
-     * @return The converted BufferedImage
-     */
-    public static BufferedImage toBufferedImage(Image img)
-    {
-        if (img instanceof BufferedImage)
-        {
-            return (BufferedImage) img;
-        }
-
-        // Create a buffered image with transparency
-        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-        // Draw the image on to the buffered image
-        Graphics2D bGr = bimage.createGraphics();
-        bGr.drawImage(img, 0, 0, null);
-        bGr.dispose();
-
-        // Return the buffered image
-        return bimage;
-    }
-
-    public static JFrame drawFrame(double[]frequenFilt/*frequen*/,double[] filterData/*samples*/,String title/*title*/){
-        XYSeriesCollection datasetFiltFreq = new XYSeriesCollection( );
-        XYSeriesCollection datasetFiltSampl = new XYSeriesCollection( );
-
-        XYSeries seriesFiltFreq = new XYSeries("Filtered Frequency");
-        XYSeries seriesFiltSampl= new XYSeries("Filtered Samples");
-
-        for(int i=0;i<SIZE;i++){
-            seriesFiltFreq.add(i*22050/SIZE, frequenFilt[i]);
-            seriesFiltSampl.add(i, filterData[i]);
-        }
-
-        datasetFiltFreq.addSeries(seriesFiltFreq);
-        datasetFiltSampl.addSeries(seriesFiltSampl);
-
-        JFreeChart chartFiltFreq = ChartFactory.createXYLineChart(
-                "Frequncy Chart",      // chart title
-                "X",                      // x axis label
-                "Y",                      // y axis label
-                datasetFiltFreq,                  // data
-                PlotOrientation.VERTICAL,
-                true,                     // include legend
-                true,                     // tooltips
-                false                     // urls
-        );
-
-        JFreeChart chartFiltSampl = ChartFactory.createXYLineChart(
-                "Samples Chart",      // chart title
-                "X",                      // x axis label
-                "Y",                      // y axis label
-                datasetFiltSampl,                  // data
-                PlotOrientation.VERTICAL,
-                true,                     // include legend
-                true,                     // tooltips
-                false                     // urls
-        );
-
-        ChartPanel chartPanelFiltFreq = new ChartPanel( chartFiltFreq );
-        chartPanelFiltFreq.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-
-        ChartPanel chartPanelFiltSampl = new ChartPanel( chartFiltSampl );
-        chartPanelFiltSampl.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-
-        JFrame filtFrame = new JFrame(title);
-
-        filtFrame.getContentPane().add(chartPanelFiltFreq,BorderLayout.EAST);
-        filtFrame.getContentPane().add(chartPanelFiltSampl,BorderLayout.WEST);
-        filtFrame.pack();
-        filtFrame.setVisible(true);
-        return filtFrame;
-    }
-
-    static void createWav(double [] samples,String title) throws Exception {
-        int[] intSamples=new int[samples.length];
-
-        for (int i=0;i<samples.length;i++) {
-               intSamples[i]=(int)samples[i];
-        }
-
-        WaveFile wf = new WaveFile(4, 44100, 1, intSamples);
-        wf.saveFile(new File(title+".wav"));
-        System.out.println(title);
-        System.out.println("Продолжительность стерео-файла: "+wf.getDurationTime()+ " сек.");
-    }
 }
 
 

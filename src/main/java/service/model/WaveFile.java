@@ -22,10 +22,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class WaveFile {
 
     private int INT_SIZE = 4;
-    public final int NOT_SPECIFIED = -1;
+    private final int NOT_SPECIFIED = -1;
     private int sampleSize = NOT_SPECIFIED;
     private long framesCount = NOT_SPECIFIED;
-    private byte[] data = null;  // массив байт представляющий аудио-данные
+    private byte[] data = null;  // samples array
     private AudioInputStream ais = null;
     private AudioFormat af = null;
 
@@ -36,7 +36,7 @@ public class WaveFile {
      * @throws UnsupportedAudioFileException
      * @throws IOException
      */
-    WaveFile(File file) throws UnsupportedAudioFileException, IOException {
+    public WaveFile(File file) throws UnsupportedAudioFileException, IOException {
 
         if(!file.exists()) {
             throw new FileNotFoundException(file.getAbsolutePath());
@@ -71,7 +71,7 @@ public class WaveFile {
      * @throws Exception если размер сэмпла меньше, чем необходимо
      * для хранения переменной типа int
      */
-    WaveFile(int sampleSize, float sampleRate, int channels, int[] samples) throws Exception {
+    public WaveFile(int sampleSize, float sampleRate, int channels, int[] samples) throws Exception {
 
         if(sampleSize < INT_SIZE){
             throw new Exception("sample size < int size");
@@ -138,6 +138,15 @@ public class WaveFile {
         return framesCount;
     }
 
+
+    public int getSampleRate(){
+        return (int)af.getSampleRate();
+    }
+    public int getChannels(){
+
+        return af.getChannels();
+    }
+
     /**
      * Сохраняет объект service.model.WaveFile в стандартный файл формата WAVE
      *
@@ -191,7 +200,7 @@ public class WaveFile {
      * @param sampleValue - значение сэмпла
      */
     public void setSampleInt(int sampleNumber, int sampleValue){
-
+        //int buffSampleSize=sampleSize<INT_SIZE?INT_SIZE:sampleSize;
         // представляем целое число в виде массива байт
         byte[] sampleBytes = ByteBuffer.allocate(sampleSize).
                 order(ByteOrder.LITTLE_ENDIAN).putInt(sampleValue).array();
