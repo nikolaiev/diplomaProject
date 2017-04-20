@@ -9,10 +9,31 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/wavPage.css"/>
+    <jsp:include page="/WEB-INF/view/fragments/header.jsp" />
+    <link href="/css/dropzone.css" rel="stylesheet"/>
     <script rel="script" src="${pageContext.request.contextPath}/js/wavPage.js"></script>
+    <script rel="script" src="${pageContext.request.contextPath}/js/dropzone.js"></script>
 </head>
 <body>
     Diploma project start page! UPLOAD YOUR WAV FILE!!!
+    <div id="my_dropzone">
+        <form action="/file-upload" class="dropzone">
+            <div class="fallback">
+                <input name="file" type="file" />
+            </div>
+        </form>
+    </div>
+
+
+    <form method="post" action="/api/upload" enctype="multipart/form-data">
+        <input type="file" name="file_name" value="wavFile" accept="audio/wav"/>
+        <br>
+        <br>
+        <input type="submit" value="uploadFile"/>
+    </form>
+
+
 </body>
 </html>
+
+<jsp:include page="/WEB-INF/view/fragments/footer.jsp" />

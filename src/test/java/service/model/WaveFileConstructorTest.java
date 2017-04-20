@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import service.exception.WavFileException;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
@@ -30,14 +31,10 @@ public class WaveFileConstructorTest {
     }
 
     @Test
-    public void defaultConstructor() throws IOException, UnsupportedAudioFileException {
+    public void defaultConstructor() throws IOException, UnsupportedAudioFileException, WavFileException {
         logger.info("wav file path "+path);
         File wavFile=new File(path);
-        WaveFile waveFile = new WaveFile(wavFile);
-        logger.info("duration time "+waveFile .getDurationTime());
-        logger.info("audio format "+waveFile .getAudioFormat());
-        logger.info("frames count "+waveFile .getFramesCount());
-        logger.info("sample size "+waveFile .getSampleSize());
+        WavFile waveFile = WavFile.openWavFile(wavFile);
         assertNotNull(waveFile);
     }
 }

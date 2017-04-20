@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-    My 404
+    Requested page wast'n found
 </body>
 </html>

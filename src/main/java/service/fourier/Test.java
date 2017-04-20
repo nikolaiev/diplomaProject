@@ -8,7 +8,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jtransforms.fft.DoubleFFT_1D;
-import service.model.WaveFile;
+import service.model.WavFile;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,88 +24,13 @@ public class Test {
     final static Logger logger =Logger.getLogger(Test.class);
 
     //final static String WAV_FILE_PATH ="/home/vlad/Downloads/are_you_online.wav";
-    final static String WAV_FILE_PATH ="/home/vlad/Downloads/egotistical.wav";
+    final static String WAV_FILE_PATH ="/home/vlad/Downloads/are_you_online.wav";
 
-    static int SIZE=1;
     static int SAMPLE_RATE=1;
 
     public static void main(String[] args) throws Exception {
 
-        WavFile wavFile=WavFile.openWavFile(new File(WAV_FILE_PATH));
 
-        SAMPLE_RATE=(int) wavFile.getSampleRate();
-
-        int frames[]=new int[(int)(wavFile.getNumFrames())];
-
-        wavFile.readFrames(frames, (int) wavFile.getNumFrames());
-
-        DoubleFFT_1D fftDo = new DoubleFFT_1D(frames.length);
-
-        double [] fft=new double[frames.length*2];
-
-        for(int i=0;i<frames.length;i++){
-            fft[i]=frames[i];
-        }
-
-        final int ITER_COUNT=10;
-
-        //TODO filtering from 100Hz to 400Hz
-
-        double normalizeCoeff=(double)SAMPLE_RATE/wavFile.getNumFrames();
-
-        /*0-44100*/
-        double beginFreq = 1;
-        double endFreq = 3000;
-
-        int beginFreqIndex = (int) (beginFreq /normalizeCoeff);
-        int endFreqIndex = (int) (endFreq /normalizeCoeff);
-        //TODO убрать!!
-        for(int k=0;k<ITER_COUNT;k++) {
-            fftDo.realForwardFull(fft);
-            //fft[0]=0;
-            if(k==0)
-                drawAndSave(fft, frames);
-
-            for (int i = beginFreqIndex; i < endFreqIndex; i++) {
-                fft[2 * i] = 0.001;
-                fft[2 * i + 1] = 0.001;
-                //fft[i]=0;
-            }
-
-            fftDo.complexInverse(fft, true);
-            if(k<ITER_COUNT-1)
-                for(int i=0;i<fft.length/2;i++){
-                    fft[i]=fft[2*i];
-                    fft[2*i+1]=0;
-                }
-
-        }
-
-        int framesFiltered[]=new int[(int)(wavFile.getNumFrames())];
-
-        for(int i=0;i<frames.length-1;i++){
-            framesFiltered[i]=(int)fft[2*i];
-        }
-
-        for(int i=0;i<fft.length/2;i++){
-            fft[i]=fft[2*i];
-            fft[2*i+1]=0;
-        }
-
-
-
-        fftDo.realForwardFull(fft);
-        drawAndSave(fft,framesFiltered);
-
-
-
-
-
-        WavFile newFile=WavFile.newWavFile(new File("filtered.wav"),wavFile.getNumChannels(),
-                framesFiltered.length,wavFile.getValidBits(),wavFile.getSampleRate());
-
-        newFile.writeFrames(framesFiltered,framesFiltered.length);
-        newFile.close();
 
 
     }

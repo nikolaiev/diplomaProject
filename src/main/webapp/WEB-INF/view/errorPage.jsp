@@ -14,3 +14,5 @@
     SOME ERRORS
 </body>
 </html>
+
+<jsp:include page="/WEB-INF/view/fragments/footer.jsp" />

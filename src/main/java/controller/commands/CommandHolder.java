@@ -29,10 +29,17 @@ public class CommandHolder {
 
         /*COMMON COMMANDS*/
         commands.put(GET_PATH + DEPLOY_PATH + "/wav",new GoHomeCommand());
+        commands.put(GET_PATH + DEPLOY_PATH + "/wav/handle",new WavHandlingCommand());
+        commands.put(GET_PATH + DEPLOY_PATH + "/wav/download",new GoDownloadCommand());
+
         commands.put(POST_PATH + DEPLOY_PATH + "/api/upload",new UploadFileCommand());
+        commands.put(POST_PATH + DEPLOY_PATH + "/api/download",new DownloadFileCommand());
+        commands.put(POST_PATH + DEPLOY_PATH + "/api/filter",new FilterFileCommand());
     }
 
     public Command getCommand(String url) {
+        if(url.startsWith(GET_PATH + DEPLOY_PATH + "/static"))
+            return new GetStaticFileCommand();
         return commands.getOrDefault(url,INVALID_URL_COMMAND);
 
     }

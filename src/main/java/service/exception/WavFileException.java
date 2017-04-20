@@ -1,4 +1,4 @@
-package service.fourier;
+package service.exception;
 
 /**
  * Created by vlad on 20.04.17.

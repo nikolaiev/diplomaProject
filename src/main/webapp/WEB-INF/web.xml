@@ -20,7 +20,8 @@
     <servlet-mapping>
         <servlet-name>main</servlet-name>
         <url-pattern>/api/*</url-pattern>
-        <url-pattern>/wav</url-pattern>
+        <url-pattern>/wav/*</url-pattern>
+        <url-pattern>/static/*</url-pattern>
     </servlet-mapping>
 
     <filter>
@@ -36,7 +37,7 @@
 
     <context-param>
         <param-name>upload.location</param-name>
-        <param-value>/usr/share/tomcat8/bin/library/</param-value>
+        <param-value>/usr/share/tomcat8/bin/diploma/</param-value>
     </context-param>
 
     <error-page>
