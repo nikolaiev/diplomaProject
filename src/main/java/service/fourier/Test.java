@@ -24,7 +24,7 @@ public class Test {
     final static Logger logger =Logger.getLogger(Test.class);
 
     //final static String WAV_FILE_PATH ="/home/vlad/Downloads/are_you_online.wav";
-    final static String WAV_FILE_PATH ="/home/vlad/Downloads/440.wav";
+    final static String WAV_FILE_PATH ="/home/vlad/Downloads/egotistical.wav";
 
     static int SIZE=1;
     static int SAMPLE_RATE=1;
@@ -33,6 +33,7 @@ public class Test {
 
         WavFile wavFile=WavFile.openWavFile(new File(WAV_FILE_PATH));
 
+        SAMPLE_RATE=(int) wavFile.getSampleRate();
 
         int frames[]=new int[(int)(wavFile.getNumFrames())];
 
@@ -46,27 +47,39 @@ public class Test {
             fft[i]=frames[i];
         }
 
-        fftDo.realForwardFull(fft);
-        //fft[0]=0;
-        drawAndSave(fft,frames);
-
+        final int ITER_COUNT=10;
 
         //TODO filtering from 100Hz to 400Hz
-        double normKoef=frames.length/wavFile.getSampleRate();
-        double beginFreq=100;
-        double endFreq=400;
 
-        //int beginFreqIndex=beginFreq
+        double normalizeCoeff=(double)SAMPLE_RATE/wavFile.getNumFrames();
 
-        System.out.println(fft.length);
-        for(int i=1;i<40000;i++){
-            fft[2*i]=0;
-            fft[2*i+1]=0;
-            fft[i]=0;
+        /*0-44100*/
+        double beginFreq = 1;
+        double endFreq = 3000;
+
+        int beginFreqIndex = (int) (beginFreq /normalizeCoeff);
+        int endFreqIndex = (int) (endFreq /normalizeCoeff);
+        //TODO убрать!!
+        for(int k=0;k<ITER_COUNT;k++) {
+            fftDo.realForwardFull(fft);
+            //fft[0]=0;
+            if(k==0)
+                drawAndSave(fft, frames);
+
+            for (int i = beginFreqIndex; i < endFreqIndex; i++) {
+                fft[2 * i] = 0.001;
+                fft[2 * i + 1] = 0.001;
+                //fft[i]=0;
+            }
+
+            fftDo.complexInverse(fft, true);
+            if(k<ITER_COUNT-1)
+                for(int i=0;i<fft.length/2;i++){
+                    fft[i]=fft[2*i];
+                    fft[2*i+1]=0;
+                }
+
         }
-
-
-        fftDo.complexInverse(fft,true);
 
         int framesFiltered[]=new int[(int)(wavFile.getNumFrames())];
 
@@ -93,7 +106,6 @@ public class Test {
 
         newFile.writeFrames(framesFiltered,framesFiltered.length);
         newFile.close();
-        System.out.println("end");
 
 
     }
@@ -162,7 +174,8 @@ public class Test {
         XYSeries seriesFiltFreq = new XYSeries("Filtered Frequency");
         XYSeries seriesFiltSampl= new XYSeries("Filtered Samples");
 
-        double normalizeCoeff=(double)44100/filterData.length;
+        double normalizeCoeff=(double)SAMPLE_RATE/filterData.length;
+
         for(int i=0;i<filterData.length;i++){
             seriesFiltFreq.add(i*normalizeCoeff, frequenFilt[i]);
             seriesFiltSampl.add(i, filterData[i]);
