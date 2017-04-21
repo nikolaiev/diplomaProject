@@ -29,7 +29,7 @@ public class CommandHolder {
 
         /*COMMON COMMANDS*/
         commands.put(GET_PATH + DEPLOY_PATH + "/wav",new GoHomeCommand());
-        commands.put(GET_PATH + DEPLOY_PATH + "/wav/handle",new WavHandlingCommand());
+        commands.put(GET_PATH + DEPLOY_PATH + "/wav/handle",new GoHandlingCommand());
         commands.put(GET_PATH + DEPLOY_PATH + "/wav/download",new GoDownloadCommand());
         commands.put(GET_PATH + DEPLOY_PATH + "/wav/about",new GoAboutCommand());
 

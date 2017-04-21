@@ -24,7 +24,7 @@ public class GetStaticFileCommand extends CommandWrapper implements Command {
         String filename = URLDecoder.decode(request.getPathInfo().substring(1), "UTF-8");
         File file = new File(request.getServletContext().getInitParameter("upload.location"), filename);
 
-        if(!file.exists()) {
+        if(!file.exists()||!file.isFile()) {
             logger.error(FILE_NOT_EXISTS+" "+filename);
             throw new CommandException(FILE_NOT_EXISTS);
         }

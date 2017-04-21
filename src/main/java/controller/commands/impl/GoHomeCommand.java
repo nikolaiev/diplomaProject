@@ -12,6 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 public class GoHomeCommand extends CommandWrapper implements Command {
     @Override
     public String processExecute(HttpServletRequest request, HttpServletResponse response) {
-        return "/WEB-INF/view/index.jsp";
+        return "/WEB-INF/view/uploadPage.jsp";
     }
 }

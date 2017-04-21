@@ -20,7 +20,7 @@ public class FilterService implements IFilterService{
     * 1-Lowest
     * 10-Highest
     * */
-    private final int ITERATION_COUNT =5;
+    private final int ITERATION_COUNT =10;
 
     /*sample rate value in Hz*/
     private int SAMPLE_RATE=1000;

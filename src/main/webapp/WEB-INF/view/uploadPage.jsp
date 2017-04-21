@@ -12,7 +12,7 @@
     <jsp:include page="/WEB-INF/view/fragments/header.jsp" />
     <link href="${pageContext.request.contextPath}/css/dropzone.css" rel="stylesheet"/>
     <script rel="script" src="${pageContext.request.contextPath}/js/dropzone.js"></script>
-    <script rel="script" src="${pageContext.request.contextPath}/js/wavPage.js"></script>
+    <script rel="script" src="${pageContext.request.contextPath}/js/uploadPage.js"></script>
 </head>
 <body>
 
