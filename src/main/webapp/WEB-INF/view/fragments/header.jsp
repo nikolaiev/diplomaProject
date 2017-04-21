@@ -27,9 +27,9 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/wav">Home</a></li>
-            <li><a href="#">Handle</a></li>
-            <li><a href="#">Download</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="/wav/handle">Handle</a></li>
+            <li><a href="/wav/download">Download</a></li>
+            <li><a href="/wav/about">About</a></li>
         </ul>
     </div>
 </nav>

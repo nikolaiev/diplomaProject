@@ -31,6 +31,7 @@ public class CommandHolder {
         commands.put(GET_PATH + DEPLOY_PATH + "/wav",new GoHomeCommand());
         commands.put(GET_PATH + DEPLOY_PATH + "/wav/handle",new WavHandlingCommand());
         commands.put(GET_PATH + DEPLOY_PATH + "/wav/download",new GoDownloadCommand());
+        commands.put(GET_PATH + DEPLOY_PATH + "/wav/about",new GoAboutCommand());
 
         commands.put(POST_PATH + DEPLOY_PATH + "/api/upload",new UploadFileCommand());
         commands.put(POST_PATH + DEPLOY_PATH + "/api/download",new DownloadFileCommand());

@@ -44,8 +44,9 @@ public class UploadFileCommand extends CommandWrapper implements Command {
 
         HttpSession session=request.getSession();
         session.setAttribute("initFileName",savedFileName);
-
-        response.sendRedirect(request.getContextPath()+"/wav/handle");
+        session.setAttribute("initFileNameShort",uniqueName);
+        response.getWriter().write("File successfully uploaded");
+        //response.sendRedirect(request.getContextPath()+"/wav/handle");
 
         return "REDIRECTED";
     }

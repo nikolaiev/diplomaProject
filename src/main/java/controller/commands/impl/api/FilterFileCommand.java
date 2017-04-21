@@ -52,7 +52,7 @@ public class FilterFileCommand extends CommandWrapper implements Command {
         }
         catch (WavFileException e){
             logger.error("Wav file filter exception",e);
-            throw new CommandException(e.toString());
+            throw new CommandException("Filtering error. "+e.toString());
         }
 
         response.sendRedirect("/wav/download");

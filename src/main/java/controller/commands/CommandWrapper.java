@@ -23,6 +23,7 @@ public abstract class CommandWrapper implements Command{
         }
         catch (Exception e){
             logger.error("command execution error",e);
+            request.setAttribute("error",e.toString());
             return DEFAULT_ERROR_PAGE;
         }
     }

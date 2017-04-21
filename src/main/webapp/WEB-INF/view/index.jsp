@@ -10,27 +10,28 @@
 <head>
     <title>Title</title>
     <jsp:include page="/WEB-INF/view/fragments/header.jsp" />
-    <link href="/css/dropzone.css" rel="stylesheet"/>
-    <script rel="script" src="${pageContext.request.contextPath}/js/wavPage.js"></script>
+    <link href="${pageContext.request.contextPath}/css/dropzone.css" rel="stylesheet"/>
     <script rel="script" src="${pageContext.request.contextPath}/js/dropzone.js"></script>
+    <script rel="script" src="${pageContext.request.contextPath}/js/wavPage.js"></script>
 </head>
 <body>
-    Diploma project start page! UPLOAD YOUR WAV FILE!!!
-    <div id="my_dropzone">
-        <form action="/file-upload" class="dropzone">
-            <div class="fallback">
-                <input name="file" type="file" />
-            </div>
-        </form>
+
+    <div class="alert alert-danger" id="max-files-reached" hidden>
+        <strong>Only one file allowed!</strong> Go to Handle menu.
+    </div>
+
+    <div class="alert alert-success" id="success-upload" hidden>
+        <strong>File uploaded!</strong> Go to Handle menu.
     </div>
 
 
-    <form method="post" action="/api/upload" enctype="multipart/form-data">
-        <input type="file" name="file_name" value="wavFile" accept="audio/wav"/>
-        <br>
-        <br>
-        <input type="submit" value="uploadFile"/>
-    </form>
+    <div>
+        <%--param name is file_name--%>
+        <form class="dropzone" drop-zone="" id="file-dropzone"></form>
+    </div>
+
+
+
 
 
 </body>
