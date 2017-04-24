@@ -10,7 +10,7 @@
 <head>
     <title>Download file</title>
     <jsp:include page="/WEB-INF/view/fragments/header.jsp" />
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/loader.js"></script>
 
 
 </head>
