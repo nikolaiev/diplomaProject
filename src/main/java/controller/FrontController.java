@@ -15,14 +15,12 @@ import java.io.IOException;
  */
 public class FrontController extends HttpServlet{
     private static final Logger logger=Logger.getLogger(FrontController.class);
-    private static String DEPLOY_PATH;
+    private static String DEPLOY_PATH="";
 
-    public FrontController(){
-        DEPLOY_PATH=getServletContext().getContextPath();
-    }
     @Override
     public void init(){
         logger.info("Front controller initiation");
+        DEPLOY_PATH=getServletContext().getContextPath();
     }
 
     @Override
