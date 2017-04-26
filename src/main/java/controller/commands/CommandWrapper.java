@@ -1,6 +1,8 @@
 package controller.commands;
 
 import controller.commands.exception.CommandException;
+import controller.commands.helper.ParamExtractor;
+import controller.commands.helper.RequestParamExtractor;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import java.io.IOException;
  * Created by vlad on 20.04.17.
  */
 public abstract class CommandWrapper implements Command{
+    protected static final ParamExtractor paramExtractor =new RequestParamExtractor();
     private static String DEFAULT_ERROR_PAGE="/WEB-INF/view/errorPage.jsp";
     private static final Logger logger=Logger.getLogger(CommandWrapper.class);
 

@@ -14,6 +14,6 @@ public interface IService {
 
     int[] getInitialFrequencies(final String FILE_NAME) throws IOException, WavFileException;
 
-    void filterFile(final String FILE_NAME,final String FILTERED_FILE_NAME,int beginFrequency,int endFrequency)
+    void filterFile(final String FILE_NAME,final String FILTERED_FILE_NAME,Integer beginFrequency,Integer endFrequency)
             throws IOException, WavFileException;
 }

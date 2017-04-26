@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class FilterService extends AbstractService implements IService {
     private final static String ILLEGAL_ARG_EXCEPTION_MESSAGE="End frequency must higher than Start";
-    private final static String FILE_SIZE_EXCEPTION="File is to big";
+
     private final static Logger logger =Logger.getLogger(FilterService.class);
 
     /*level of filtering
@@ -25,7 +25,7 @@ public class FilterService extends AbstractService implements IService {
     private final int ITERATION_COUNT =10;
 
     @Override
-    public void filterFile(final String FILE_NAME,final String FILTERED_FILE_NAME,int beginFrequency,int endFrequency) throws IOException, WavFileException {
+    public void filterFile(final String FILE_NAME,final String FILTERED_FILE_NAME,Integer beginFrequency,Integer endFrequency) throws IOException, WavFileException {
         logger.info("filterFile function start");
 
         if(beginFrequency>endFrequency) {

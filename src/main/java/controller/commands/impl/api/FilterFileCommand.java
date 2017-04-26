@@ -27,17 +27,16 @@ import java.io.File;
  */
 public class FilterFileCommand extends CommandWrapper implements Command {
     private static Logger logger= Logger.getLogger(FilterFileCommand.class);
-    private static final ParamExtractor paramExtractor =new RequestParamExtractor();
     private static final String EXTENSION ="wav";
     @Override
     public String processExecute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, CommandException {
-        //TODO rewrite
-HttpSession session=request.getSession();
+        HttpSession session=request.getSession();
 
         String initFileName= (String) session.getAttribute("initFileName");
 
-        int bFreq=paramExtractor.getIntParam(request,"begin_freq");
-        int eFreq=paramExtractor.getIntParam(request,"end_freq");
+        logger.info("Getting intOrNull params");
+        Integer bFreq=paramExtractor.getIntParamOrNull(request,"begin_freq");
+        Integer eFreq=paramExtractor.getIntParamOrNull(request,"end_freq");
         String filesLocation=request.getServletContext().getInitParameter("upload.location");
         String filteredFileName= UUID.randomUUID().toString().replace("-","_")+"."+ EXTENSION;
         String filteredFullFileName=filesLocation+filteredFileName;
