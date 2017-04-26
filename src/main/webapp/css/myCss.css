@@ -19,3 +19,8 @@ audio{
     margin-bottom: 50px;
     height: 200px;
 }
+
+.left{
+    float: left;
+    margin-left: 100px;
+}

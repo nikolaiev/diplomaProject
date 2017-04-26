@@ -21,11 +21,13 @@
     <div id="chart_div_samples" class="my-diagram"></div>
     <div id="chart_div_freq" class="my-diagram"></div>
 
-    <form action="/api/filter" method="post" id="filter-form">
+    <form action="/api/filter" class="left" method="post" id="filter-form">
 
-        <%--TODO replace with proper type--%>
+        <div align="center">
+            <button type="submit" class="btn btn-info">Filter</button>
+        </div>
 
-        <input type="hidden" class="form-control"  name="service_type" value="FILTER">
+        <input type="hidden" class="form-control "  name="service_type" value="FILTER">
 
         <div class="form-group">
             <label >Lower frequency:</label>
@@ -37,11 +39,35 @@
             <input type="number" class="form-control" max="${sessionScope.max_freq/2}" name="end_freq">
         </div>
 
+
+    </form>
+
+    <form action="/api/filter" class="left" method="post" id="filter-form-jazz">
+
+        <input type="hidden" class="form-control"  name="service_type" value="JAZZ">
+
         <div align="center">
-            <button type="submit" class="btn btn-info">Filter</button>
+            <button type="submit" class="btn btn-info">JAZZ filter</button>
         </div>
     </form>
 
+    <form action="/api/filter" class="left" method="post" id="filter-form-rock">
+
+        <input type="hidden" class="form-control"  name="service_type" value="ROCK">
+
+        <div align="center">
+            <button type="submit" class="btn btn-info">ROCK filter</button>
+        </div>
+    </form>
+
+    <form action="/api/filter" class="left" method="post" id="filter-form-pop">
+
+        <input type="hidden" class="form-control"  name="service_type" value="POP">
+
+        <div align="center">
+            <button type="submit" class="btn btn-info">POP filter</button>
+        </div>
+    </form>
 
 </body>
 </html>
