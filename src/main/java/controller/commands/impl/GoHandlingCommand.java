@@ -25,7 +25,7 @@ public class GoHandlingCommand extends CommandWrapper implements Command {
         if(fileName!=null)
             try {
                 int [] initialSamples=service.getInitialSamples(fileName);
-                int [] initialFreq=service.getInitialFrequensies(fileName);
+                int [] initialFreq=service.getInitialFrequencies(fileName);
                 int maxFrequency=service.getSampleRate(fileName);
                 request.getSession().setAttribute("max_freq",maxFrequency);
                 request.getSession().setAttribute("samples",initialSamples);

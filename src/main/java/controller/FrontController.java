@@ -1,7 +1,7 @@
 package controller;
 
 import controller.commands.Command;
-import controller.commands.CommandHolder;
+import controller.commands.CommandFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -15,12 +15,14 @@ import java.io.IOException;
  */
 public class FrontController extends HttpServlet{
     private static final Logger logger=Logger.getLogger(FrontController.class);
-    private static CommandHolder commandHolder;
+    private static String DEPLOY_PATH;
 
+    public FrontController(){
+        DEPLOY_PATH=getServletContext().getContextPath();
+    }
     @Override
     public void init(){
         logger.info("Front controller initiation");
-        commandHolder=new CommandHolder(getServletContext().getContextPath());
     }
 
     @Override
@@ -37,7 +39,8 @@ public class FrontController extends HttpServlet{
         logger.info("processRequest method call");
 
         String url=req.getMethod()+":"+req.getRequestURI();
-        Command command=commandHolder.getCommand(url);
+
+        Command command= CommandFactory.getInstance().getCommand(url);
 
         String view=command.execute(req,resp);
 

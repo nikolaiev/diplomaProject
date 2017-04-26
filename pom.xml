@@ -89,7 +89,7 @@
                 <configuration>
                     <url>http://localhost:8081/manager/text</url>
                     <server>myLocalServer</server>
-                    <path>/library</path>
+                    <path>/diploma/</path>
                 </configuration>
             </plugin>
 

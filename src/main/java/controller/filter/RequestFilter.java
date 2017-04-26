@@ -1,7 +1,5 @@
 package controller.filter;
 
-import com.sun.deploy.net.HttpRequest;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +8,7 @@ import java.io.IOException;
 /**
  * Created by vlad on 20.04.17.
  */
-public class RequestFilted implements Filter {
+public class RequestFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

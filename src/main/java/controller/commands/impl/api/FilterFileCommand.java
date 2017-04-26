@@ -6,6 +6,9 @@ import controller.commands.exception.CommandException;
 import controller.commands.helper.ParamExtractor;
 import controller.commands.helper.RequestParamExtractor;
 import org.apache.log4j.Logger;
+import service.IService;
+import service.ServiceFactory;
+import service.ServiceType;
 import service.exception.WavFileException;
 import service.fourier.FilterService;
 import sun.rmi.runtime.Log;
@@ -28,9 +31,8 @@ public class FilterFileCommand extends CommandWrapper implements Command {
     private static final String EXTENSION ="wav";
     @Override
     public String processExecute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, CommandException {
-
-        FilterService service=new FilterService();
-        HttpSession session=request.getSession();
+        //TODO rewrite
+HttpSession session=request.getSession();
 
         String initFileName= (String) session.getAttribute("initFileName");
 
@@ -40,8 +42,13 @@ public class FilterFileCommand extends CommandWrapper implements Command {
         String filteredFileName= UUID.randomUUID().toString().replace("-","_")+"."+ EXTENSION;
         String filteredFullFileName=filesLocation+filteredFileName;
 
+        ServiceType serviceType=paramExtractor.getEnumParamOrNull(request,"service_type",ServiceType.class);
+
+        ServiceFactory serviceFactory=ServiceFactory.getInstance();
+        IService service=serviceFactory.getService(serviceType);
 
         try {
+
             service.filterFile(initFileName,filteredFullFileName,bFreq,eFreq);
             /*remove previous filtered file*/
             Optional.ofNullable((String)session.getAttribute("filteredFileName")).ifPresent(fileName->this.removeFile(fileName,filesLocation));

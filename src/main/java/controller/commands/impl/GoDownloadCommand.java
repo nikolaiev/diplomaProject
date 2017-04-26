@@ -6,13 +6,11 @@ import controller.commands.exception.CommandException;
 import org.apache.log4j.Logger;
 import service.exception.WavFileException;
 import service.fourier.FilterService;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  * Created by vlad on 20.04.17.
@@ -28,7 +26,7 @@ public class GoDownloadCommand extends CommandWrapper implements Command {
         if(filteredFileName!=null)
             try {
                 String fullFileName=filesLocation+filteredFileName;
-                int [] frequencies=service.getInitialFrequensies(fullFileName);
+                int [] frequencies=service.getInitialFrequencies(fullFileName);
                 int [] samples=service.getInitialSamples(fullFileName);
                 int maxFrequency=service.getSampleRate(fullFileName);
                 request.getSession().setAttribute("max_freq",maxFrequency);

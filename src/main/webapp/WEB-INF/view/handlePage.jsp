@@ -22,6 +22,11 @@
     <div id="chart_div_freq" class="my-diagram"></div>
 
     <form action="/api/filter" method="post" id="filter-form">
+
+        <%--TODO replace with proper type--%>
+
+        <input type="hidden" class="form-control"  name="service_type" value="FILTER">
+
         <div class="form-group">
             <label >Lower frequency:</label>
             <input type="number" class="form-control" min="1" name="begin_freq">
@@ -48,9 +53,10 @@
 <script>
     google.charts.load('current', {packages: ['corechart', 'line']});
     google.charts.setOnLoadCallback(drawBasic);
+
     function drawBasic() {
         drawSamples();
-        drawFrequensies();
+        drawFrequencies();
     }
     
     function drawSamples() {
@@ -88,7 +94,7 @@
         chart.draw(data, options);
     }
     
-    function drawFrequensies() {
+    function drawFrequencies() {
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'X');
         data.addColumn('number', 'Amplitude');
